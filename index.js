@@ -13,26 +13,16 @@ app.get("/", (req,res)=>{
         var index=Math.floor(Math.random(1)*2265);
         words.push(data[0][index]);
     }
-    // console.log(words);
     res.render("index.ejs",{words});
-    // var start=0;
-    // var end=7;
-    // for (let i = 0; i < 15; i++) {
-    //     var sentence="";
-    //     for (let j = start; j < end; j++) {
-    //         if(words[j]){
-    //             sentence=sentence+words[j]+" ";
-    //         }
-    //         else{
-    //             break;
-    //         }
-    //     }
-    //     sentences.push(sentence);
-    //     start=end;
-    //     end=end+7;
-    //     // console.log(sentences[i]);
-    // }
-    // res.render("index.ejs",{sentences});
+})
+app.post("/result",(req,res)=>{
+    // res.sendStatus(200);
+    console.log(req.body);
+    var speed=req.body["speed"];
+    var accuracy=req.body["accuracy"];
+    var avgSpeed=req.body["avgSpeed"];
+    console.log(speed,accuracy,avgSpeed);
+    // res.render("result.ejs",{speed,accuracy,avgSpeed});
 })
 app.listen(port,()=>{
     console.log(`Server listening on the port ${port}`);

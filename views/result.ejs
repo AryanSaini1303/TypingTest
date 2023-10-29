@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+
+        .textSection {
+            background-color: #121212;
+            height: 18vh;
+            width: 75vw;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            color: white;
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .textContainer {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            position: absolute;
+            top: 10rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .textContainer .typing {
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="textContainer">
+        <div class="textSection">
+            <div class="WPM">
+                <h1>WPM</h1>
+                <h2><%= speed %></h2>
+            </div>
+            <div class="accuracy">
+                <h1>Accuracy</h1>
+                <h2><%= accuracy %></h2>
+            </div>
+            <div class="avgSpeed">
+                <h1>Avg. Speed</h1>
+                <h2><%= avgSpeed %></h2>
+            </div>
+        </div>
+        <!-- <a><img src="https://i.ibb.co/J3VcjHK/m3.png" class="monkey"></a> -->
+        <img src="../public/images/m4_fast.png" alt="" class="typing">
+    </div>
+</body>
+
+</html>

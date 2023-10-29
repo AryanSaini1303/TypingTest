@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
         body {
@@ -53,7 +54,7 @@
         .textSection>ul li {
             font-family: 'Comfortaa', sans-serif;
             border-radius: 0.2rem;
-            transition:0.1s ease;
+            transition: 0.1s ease;
         }
 
         .textContainer {
@@ -67,10 +68,16 @@
             align-items: center;
         }
 
+        .inputSection {
+            display: flex;
+            align-items: center;
+            width: 75vw;
+        }
+
         .inputSection>input {
             margin: 1.5rem 0;
             font-size: 2rem;
-            width: 73vw;
+            width: 70vw;
             border-radius: 0.5rem;
             padding: 0.8rem 0.8rem;
             border: none;
@@ -87,9 +94,16 @@
         }
 
         .incorrect {
-            color:#E25303
-            /*background-color: red;*
+            color: #E25303
+                /*background-color: red;*
             /*padding: 0.2rem;*/
+        }
+
+        .timer {
+            color: grey;
+            font-size: 3.5rem;
+            padding: 0 2rem;
+            font-family: 'Oswald', sans-serif;
         }
     </style>
 </head>
@@ -110,6 +124,7 @@
         </div>
         <div class="inputSection">
             <input type="text" placeholder="Start typing...." class="inputText">
+            <div class="timer">60</div>
         </div>
         <a><img src="https://i.ibb.co/J3VcjHK/m3.png" class="monkey"></a>
     </div>
@@ -118,9 +133,54 @@
         var keypress = 0;
         var spacebarCount = 0;
         var scrollPosition = 0;
-        var removing=1;
-        var adding=removing+1;
+        var removing = 1;
+        var adding = removing + 1;
+        var seconds = 1;
+        var correctLetters=0;
+        var totalLetters=0;
         $(".inputSection>input").keydown(function (e) {
+            if(((event.which||event.keyCode)>'48'&&(event.which||event.keyCode)<'57')||((event.which||event.keyCode)>'65'&&(event.which||event.keyCode)<'90')||((event.which||event.keyCode)>'97'&&(event.which||event.keyCode)<'105')||((event.which||event.keyCode)>'186'&&(event.which||event.keyCode)<'222')||(event.which||event.keyCode)=='32'){
+                correctLetters++;
+                totalLetters++;
+            }
+            /*else if((event.which||event.keyCode)=='8'){
+                correctLetters--;
+            }*///this was to remove the correctLetters which were backspaced
+            if (keypress == 0) {
+                var timeInterval = setInterval(function () {
+                    console.log(30 - seconds);
+                    $(".inputSection>.timer").text(30 - seconds);
+                    if (30 - seconds == 0) {
+                        console.log(correctLetters);
+                        console.log(totalLetters);
+                        const speed = Math.floor(correctLetters/5)/0.5; // WPM based on 30 seconds
+                        const accuracy=Math.floor((correctLetters/totalLetters)*100);
+                        const avgSpeed=speed*accuracy/100;
+                        fetch('/result', {
+                            method: 'POST',
+                            body: JSON.stringify({ speed, accuracy, avgSpeed}),
+                            headers: { 'Content-Type': 'application/json' },
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Handle the successful response from the server
+                                    console.log('Message submitted successfully');
+                                } else {
+                                    // Handle any errors or failed responses
+                                    console.error('Failed to submit the message');
+                                }
+                            })
+                            .catch(error => {
+                                // Handle any network or fetch errors
+                                console.error('Network error:', error);
+                            });
+                            clearInterval(timeInterval);
+                    }
+                    else {
+                        seconds++;
+                    }
+                }, 1000);
+            }
             if (spacebarCount == 0) {
                 $(".textSection>ul li:nth-child(1)").addClass("correct");
             }
@@ -135,53 +195,58 @@
             if ((event.which || event.keyCode) == '32') {
                 spacebarCount++;
                 /*console.log(spacebarCount);*/
-                if(spacebarCount==7){
+                if (spacebarCount == 7) {
                     adding++;
                 }
-                else if(spacebarCount%7==0&&spacebarCount!=7){
-                    adding+=2;
+                else if (spacebarCount % 7 == 0 && spacebarCount != 7) {
+                    adding += 2;
                     removing++;
                 }
-                else if(spacebarCount==8){
-                    adding+=spacebarCount/8;
-                    removing+=spacebarCount/8+1;
+                else if (spacebarCount == 8) {
+                    adding += spacebarCount / 8;
+                    removing += spacebarCount / 8 + 1;
                 }
-                else if(spacebarCount!=8&&spacebarCount!=7&&spacebarCount>7){
+                else if (spacebarCount != 8 && spacebarCount != 7 && spacebarCount > 7) {
                     adding++;
-                    removing=adding-1;
+                    removing = adding - 1;
                 }
                 /*console.log("about to",adding,removing);*/
                 $(`.textSection>ul li:nth-child(${adding})`).addClass("correct");
                 $(`.textSection>ul li:nth-child(${removing})`).removeClass("correct");
                 /*console.log(adding,removing);*/
-                var index=removing;
-                if(spacebarCount<7){
+                var index = removing;
+                if (spacebarCount < 7) {
                     removing++;
-                    adding=removing+1;
+                    adding = removing + 1;
                 }
-                if(spacebarCount==1){
-                    index=1;
+                if (spacebarCount == 1) {
+                    index = 1;
                 }
                 //console.log(index);
                 /*console.log(adding,removing);*/
                 //Clear the input value when the spacebar is pressed
                 //console.log($(".inputSection>input").val());
                 var inputWord = $(".inputSection>input").val();
-                var actualWord= $(`.textSection>ul li:nth-child(${index})`).text();
+                var actualWord = $(`.textSection>ul li:nth-child(${index})`).text();
                 //console.log(spacebarCount);
                 //console.log(inputWord);
                 //console.log($.trim(actualWord));
-                if($.trim(actualWord)!=inputWord){
+                if ($.trim(actualWord) != inputWord) {
                     $(`.textSection>ul li:nth-child(${index})`).addClass("incorrect");
+                    //let incorrectLetters=($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length;
+                    //correctLetters-=incorrectLetters;
+                    let incorrectLetters=(($(".inputSection>input").val()).length);
+                    correctLetters=correctLetters-incorrectLetters;
+                    //console.log(($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length);
                 }
                 $(".inputSection>input").val('');
                 $(".inputSection>input").removeAttr('placeholder');
                 e.preventDefault(); // Prevent the space character from being added
                 if (spacebarCount % 7 == 0 && spacebarCount < 98) {//after the 98th space bar only two lines will be left so there's no need to scroll further
-                scrollPosition += 7.8; // Adjust the scroll amount as needed
-                $(".textSection>ul").css({ "transform": "translateY(-" + scrollPosition + "vh)" });
-                index++;
-            }
+                    scrollPosition += 7.8; // Adjust the scroll amount as needed
+                    $(".textSection>ul").css({ "transform": "translateY(-" + scrollPosition + "vh)" });
+                    index++;
+                }
             }
         })
         $(".inputSection>input").keyup(() => {
