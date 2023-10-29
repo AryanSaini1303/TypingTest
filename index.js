@@ -23,7 +23,7 @@ app.post("/result",(req,res)=>{
     var accuracy=req.body["accuracy"];
     var avgSpeed=req.body["avgSpeed"];
     console.log(speed,accuracy,avgSpeed);
-    res.render("result.ejs",{speed,accuracy,avgSpeed});
+    // res.render("result.ejs",{speed,accuracy,avgSpeed});
 })
 app.listen(port,()=>{
     console.log(`Server listening on the port ${port}`);
