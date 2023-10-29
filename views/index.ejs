@@ -162,15 +162,15 @@
                 if(spacebarCount==1){
                     index=1;
                 }
-                console.log(index);
+                //console.log(index);
                 /*console.log(adding,removing);*/
                 //Clear the input value when the spacebar is pressed
-                console.log($(".inputSection>input").val());
+                //console.log($(".inputSection>input").val());
                 var inputWord = $(".inputSection>input").val();
                 var actualWord= $(`.textSection>ul li:nth-child(${index})`).text();
-                console.log(spacebarCount);
-                console.log(inputWord);
-                console.log($.trim(actualWord));
+                //console.log(spacebarCount);
+                //console.log(inputWord);
+                //console.log($.trim(actualWord));
                 if($.trim(actualWord)!=inputWord){
                     $(`.textSection>ul li:nth-child(${index})`).addClass("incorrect");
                 }
