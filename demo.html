@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow:hidden;
+            margin: 0;
+        }
+        .typingText{
+            background-color:red;
+            height: 50vh;
+            width: 50vw;
+            position: absolute;
+            opacity:0.5;
+        }
+        .actualText{
+            height: 50vh;
+            width: 50vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="actualText">
+        Hello world
+    </div>
+    <div contenteditable="true" class="typingText"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+            $(".typingText").keypress(function(e){
+                if((event.which || event.keyCode)=='32'){
+                    console.log($(".typingText").text());
+                }
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+
+        .textSection {
+            background-color: #121212;
+            height: 12.6vh;
+            max-width: 75vw;
+            overflow: hidden;
+        }
+
+        .textSection>ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            font-size: 4.3vh;
+            color: white;
+            padding: 0;
+            margin: 0;
+            row-gap: 1.5rem;
+            gap: 0.7rem;
+            justify-content: stretch;
+            transform: translateY(0);
+        }
+
+        .sentenceAnimation {
+            animation: scroll 0.01s linear;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-9%);
+            }
+        }
+
+        .textSection>ul li {
+            font-family: 'Comfortaa', sans-serif;
+            border-radius: 0.2rem;
+            transition:0.1s ease;
+        }
+
+        .textContainer {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            position: absolute;
+            top: 10rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .inputSection>input {
+            margin: 1.5rem 0;
+            font-size: 2rem;
+            width: 73vw;
+            border-radius: 0.5rem;
+            padding: 0.8rem 0.8rem;
+            border: none;
+        }
+
+        .textContainer .monkey {
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .correct {
+            background-color: grey;
+            /*padding: 0.2rem;*/
+        }
+
+        .incorrect {
+            color:#E25303
+            /*background-color: red;*
+            /*padding: 0.2rem;*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="textContainer">
+        <div class="textSection">
+            <ul>
+                <%for(let i=0;i<105;i++){%>
+                    <li>
+                        <%= words[i] %>
+                    </li>
+                    <%if((i+1)%7==0){%>
+                        <div style="width:100rem"></div>
+                        <%}%>
+                            <% } %>
+            </ul>
+        </div>
+        <div class="inputSection">
+            <input type="text" placeholder="Start typing...." class="inputText">
+        </div>
+        <a><img src="https://i.ibb.co/J3VcjHK/m3.png" class="monkey"></a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var keypress = 0;
+        var spacebarCount = 0;
+        var scrollPosition = 0;
+        var removing=1;
+        var adding=removing+1;
+        $(".inputSection>input").keydown(function (e) {
+            if (spacebarCount == 0) {
+                $(".textSection>ul li:nth-child(1)").addClass("correct");
+            }
+            keypress++;
+            if (keypress % 2 == 0) {
+                $(".monkey").attr("src", "https://i.ibb.co/0qMshCj/m1.png");
+            }
+            else {
+                $(".monkey").attr("src", "https://i.ibb.co/prmkRcy/m2.png");
+            }
+            $(".monkey").css({ "display": "block" });
+            if ((event.which || event.keyCode) == '32') {
+                spacebarCount++;
+                /*console.log(spacebarCount);*/
+                if(spacebarCount==7){
+                    adding++;
+                }
+                else if(spacebarCount%7==0&&spacebarCount!=7){
+                    adding+=2;
+                    removing++;
+                }
+                else if(spacebarCount==8){
+                    adding+=spacebarCount/8;
+                    removing+=spacebarCount/8+1;
+                }
+                else if(spacebarCount!=8&&spacebarCount!=7&&spacebarCount>7){
+                    adding++;
+                    removing=adding-1;
+                }
+                /*console.log("about to",adding,removing);*/
+                $(`.textSection>ul li:nth-child(${adding})`).addClass("correct");
+                $(`.textSection>ul li:nth-child(${removing})`).removeClass("correct");
+                /*console.log(adding,removing);*/
+                if(spacebarCount<7){
+                    removing++;
+                    adding=removing+1;
+                }
+                /*console.log(adding,removing);*/
+                //Clear the input value when the spacebar is pressed
+                //console.log($(".inputSection>input").val());
+                /*var inputWord = $(".inputSection>input").val();
+                var actualWord= $(`.textSection>ul li:nth-child(${removing})`).text();
+                console.log(spacebarCount);
+                console.log(inputWord);
+                console.log($.trim(actualWord));
+                if($.trim(actualWord)!=inputWord){
+                    $(`.textSection>ul li:nth-child(${removing})`).addClass("incorrect");
+                }*/
+                $(".inputSection>input").val('');
+                $(".inputSection>input").removeAttr('placeholder');
+                e.preventDefault(); // Prevent the space character from being added
+                if (spacebarCount % 7 == 0 && spacebarCount < 98) {//after the 98th space bar only two lines will be left so there's no need to scroll further
+                scrollPosition += 7.8; // Adjust the scroll amount as needed
+                $(".textSection>ul").css({ "transform": "translateY(-" + scrollPosition + "vh)" });
+                index++;
+            }
+            }
+        })
+        $(".inputSection>input").keyup(() => {
+            $(".monkey").attr("src", "https://i.ibb.co/J3VcjHK/m3.png");
+        })
+    </script>
+</body>
+
+</html>
