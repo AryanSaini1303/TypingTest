@@ -154,21 +154,26 @@
                 $(`.textSection>ul li:nth-child(${adding})`).addClass("correct");
                 $(`.textSection>ul li:nth-child(${removing})`).removeClass("correct");
                 /*console.log(adding,removing);*/
+                var index=removing;
                 if(spacebarCount<7){
                     removing++;
                     adding=removing+1;
                 }
+                if(spacebarCount==1){
+                    index=1;
+                }
+                console.log(index);
                 /*console.log(adding,removing);*/
                 //Clear the input value when the spacebar is pressed
-                //console.log($(".inputSection>input").val());
-                /*var inputWord = $(".inputSection>input").val();
-                var actualWord= $(`.textSection>ul li:nth-child(${removing})`).text();
+                console.log($(".inputSection>input").val());
+                var inputWord = $(".inputSection>input").val();
+                var actualWord= $(`.textSection>ul li:nth-child(${index})`).text();
                 console.log(spacebarCount);
                 console.log(inputWord);
                 console.log($.trim(actualWord));
                 if($.trim(actualWord)!=inputWord){
-                    $(`.textSection>ul li:nth-child(${removing})`).addClass("incorrect");
-                }*/
+                    $(`.textSection>ul li:nth-child(${index})`).addClass("incorrect");
+                }
                 $(".inputSection>input").val('');
                 $(".inputSection>input").removeAttr('placeholder');
                 e.preventDefault(); // Prevent the space character from being added
