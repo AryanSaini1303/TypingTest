@@ -20,11 +20,11 @@ app.get("/", (req,res)=>{
 app.post("/result",(req,res)=>{
     // res.sendStatus(200);
     try{
-        console.log(req.body);
+        // console.log(req.body);
         var speed=req.body["speed"];
         var accuracy=req.body["accuracy"];
         var avgSpeed=req.body["avgSpeed"];
-        console.log(speed,accuracy,avgSpeed);
+        // console.log(speed,accuracy,avgSpeed);
         res.render("result.ejs",{speed,accuracy,avgSpeed}); 
         // res.render("result.ejs");
     }

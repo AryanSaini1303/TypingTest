@@ -94,15 +94,19 @@
         }
 
         .incorrect {
-            color: #E25303
+            color: red;
                 /*background-color: red;*
             /*padding: 0.2rem;*/
         }
 
-        .correct{
-            color:green;
+        .incorrectLetter{
+            background-color: red;
         }
-        
+
+        .correct {
+            color: green;
+        }
+
         .timer {
             color: grey;
             font-size: 3.5rem;
@@ -141,6 +145,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        $(".inputSection>input").focus();
         var keypress = 0;
         var spacebarCount = 0;
         var scrollPosition = 0;
@@ -149,9 +154,21 @@
         var seconds = 1;
         var correctLetters = 0;
         var totalLetters = 0;
+        var wordIndex=1;
         $(".inputSection>input").keydown(function (e) {
             //console.log(keypress);
             if (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32') {
+                $(".inputSection > input").on('input', function () {
+                    var inputValue = $(this).val();
+                    console.log(inputValue);
+                    var regex= new RegExp(inputValue);
+                    if(!regex.test($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))){
+                        $(`.textSection>ul li:nth-child(${wordIndex})`).addClass("incorrectLetter");
+                    }
+                    else{
+                        $(`.textSection>ul li:nth-child(${wordIndex})`).removeClass("incorrectLetter");
+                    }
+                });
                 correctLetters++;
                 totalLetters++;
             }
@@ -212,12 +229,19 @@
                 $(".monkey").attr("src", "images/m1.png");
                 keypress++;
             }
-            else if(keypress%2!=0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+            else if (keypress % 2 != 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 $(".monkey").attr("src", "images/m2.png");
                 keypress++;
             }
             if ((event.which || event.keyCode) == '32') {
                 spacebarCount++;
+                $(`.textSection>ul li:nth-child(${wordIndex})`).removeClass("incorrectLetter")
+                if(spacebarCount%7==0){
+                    wordIndex+=2;
+                }
+                else{
+                    wordIndex++;
+                }
                 /*console.log(spacebarCount);*/
                 if (spacebarCount == 7) {
                     adding++;
@@ -263,7 +287,7 @@
                     correctLetters = correctLetters - incorrectLetters;
                     //console.log(($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length);
                 }
-                else{
+                else {
                     $(`.textSection>ul li:nth-child(${index})`).addClass("correct");
                 }
                 $(".inputSection>input").val('');
