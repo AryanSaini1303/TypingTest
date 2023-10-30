@@ -77,7 +77,7 @@
         .inputSection>input {
             margin: 1.5rem 0;
             font-size: 2rem;
-            width: 70vw;
+            min-width: 60vw;
             border-radius: 0.5rem;
             padding: 0.8rem 0.8rem;
             border: none;
@@ -88,7 +88,7 @@
             display: none;
         }
 
-        .correct {
+        .currentWord {
             background-color: grey;
             /*padding: 0.2rem;*/
         }
@@ -99,11 +99,18 @@
             /*padding: 0.2rem;*/
         }
 
+        .correct{
+            color:green;
+        }
+        
         .timer {
             color: grey;
             font-size: 3.5rem;
-            padding: 0 2rem;
             font-family: 'Oswald', sans-serif;
+        }
+
+        .retry {
+            margin: 0 2rem;
         }
     </style>
 </head>
@@ -124,7 +131,11 @@
         </div>
         <div class="inputSection">
             <input type="text" placeholder="Start typing...." class="inputText">
-            <div class="timer">60</div>
+            <a href="http://localhost:3000" class="retry">
+                <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEJElEQVR4nO1ZWWtTQRQe17qCO7gV8bE+KNSlJnOTBxF8df0F7g+KGy4vVVzwSVwffFEQcYn7PSepdSEKPvggqG1sMxNjraK0boiKWgSvnKSJydzb3nuTmy6QDwaS3p4z55ucOeebuYyVUUYZPQZNwoWAgG0+gXNYf4Qm0cgOAa+5xFqtqW4y65cEskTwpybgSLDlxhjPJvI135zCJX6ynNAyCHhRMAGZHlxgW0DgMs9I+AUszZtAgjHvRairAHY58RmQsFkTUJda9a6JHF1phAZ5QoJLOEtO/XHdGPdgrzH8znbDJ26pq/832Fw3w43fxc/qR/K4vpVLeG9NAm4ukZGKognQRP44JCY83Gew8IbUmPzosJrD0UL9B1uiw2gjcwl/rEgEo9HBRZOY3XDu3oDwxiwBGrOenvk/WTy8utg5Agl9IZfQYpVORTnmElaQo8rHR7LBj7i7w1jQdC0zSUdN7PY45gGCMjKNC0yYUyq8vMDgIxM1CZ8zG3j0/d1GxZ2tucHTz3yVeQgtcWM6l/hK2WPti5quj3fvTMLxXEfVjZc65jScz6seVKmYx+ACF6h7wnUq0UpQeiibdQcXuDbn+xdPKoUFUh06P5U6agRMZU7BJexXHCSrYqGh9EwTeKXzb6dZiVAVCw3lAt7mxwAHnFkbtQNN9Tmn0gTj+oTUc4EBVkJwiVuUNHrDDGOAraGvOTxXqcdfqR/k/o+WQJ8jZ0UgGAuN4hJ+KBt6vq0hF7BHIXC5lIF2By4B8+UM7mR20ASGFAJrWC+BC9yk6LFrtkakLF3/bCWClkCfQqDB3kjAh3yjyETWS+ACZyop9MnWSK3/mfLZG1j8rH6k2g/6FYElMlKh7MfftkYZ/ZMZVPdZL2Hhy/pJSgp9tDXSBMb6yib2y0iN601MpaqvlFFN4DpFj11xYAS7lY1zsUeiddKTnDQykrMKgW/V7/QRrIcRtJASJHOciTlVCXpwbHQLnivd0+nTSrE5M5Z4SFGCieonT4awHiyfXD2ZOZbTjDE6PFDNdZ1/HoGbBeUvumxz5UQTcEptIikZXWL44zo3nQYlHHPtiG4bTLpIYJs/qVeWLPikXklzKH2onbfi2IIcBhK4SqlIRKKxFCT8Sb3S1EQlGkXfl3IJJy1ItPF42O9p2gho9/xii0DXe5pA3ewcflPTK0bsVaUP73vMOZ++WvTskrfmTWi4FYnOkaSarZ6bbZuUwLXmUvk/eJrTk+Czk0ajg7nEE12QoDL7nc7PpF+om5OSpBWmQZ/THV5fT/LAdFiX+RXHs5Xv8r7UIl+LHdzrFxzdkmjFsfRrqM2usMDhF626p6+YnIK6oybxIF06uQ5eYCvJg77xks+oHUgHH3rVRJqdDh6dJzuqLh2dn5+nn+HOQFyf51iYlVFGGaw7/AOe+7eZICbGdgAAAABJRU5ErkJggg==">
+            </a>
+            <div class="timer">10</div>
         </div>
         <a><img src="https://i.ibb.co/J3VcjHK/m3.png" class="monkey"></a>
     </div>
@@ -136,62 +147,75 @@
         var removing = 1;
         var adding = removing + 1;
         var seconds = 1;
-        var correctLetters=0;
-        var totalLetters=0;
+        var correctLetters = 0;
+        var totalLetters = 0;
         $(".inputSection>input").keydown(function (e) {
-            if(((event.which||event.keyCode)>'48'&&(event.which||event.keyCode)<'57')||((event.which||event.keyCode)>'65'&&(event.which||event.keyCode)<'90')||((event.which||event.keyCode)>'97'&&(event.which||event.keyCode)<'105')||((event.which||event.keyCode)>'186'&&(event.which||event.keyCode)<'222')||(event.which||event.keyCode)=='32'){
+            //console.log(keypress);
+            if (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32') {
                 correctLetters++;
                 totalLetters++;
             }
             /*else if((event.which||event.keyCode)=='8'){
                 correctLetters--;
             }*///this was to remove the correctLetters which were backspaced
-            if (keypress == 0) {
+            if (keypress == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 var timeInterval = setInterval(function () {
-                    console.log(30 - seconds);
-                    $(".inputSection>.timer").text(30 - seconds);
-                    if (30 - seconds == 0) {
-                        console.log(correctLetters);
-                        console.log(totalLetters);
-                        const speed = Math.floor(correctLetters/5)/0.5; // WPM based on 30 seconds
-                        const accuracy=Math.floor((correctLetters/totalLetters)*100);
-                        const avgSpeed=speed*accuracy/100;
-                        fetch('/result', {
+                    //console.log(10 - seconds);
+                    $(".inputSection>.timer").text(10 - seconds);
+                    if (10 - seconds == 0) {
+                        //console.log(correctLetters);
+                        //console.log(totalLetters);
+                        const speed = Math.floor((correctLetters / 5) / 0.16); // WPM based on 10 seconds
+                        const accuracy = Math.round((correctLetters / totalLetters) * 100);
+                        const avgSpeed = Math.floor(speed * accuracy / 100);
+                        /*fetch('/result', {
                             method: 'POST',
-                            body: JSON.stringify({ speed, accuracy, avgSpeed}),
+                            body: JSON.stringify({ speed, accuracy, avgSpeed }),
                             headers: { 'Content-Type': 'application/json' },
                         })
-                            .then(response => {
-                                if (response.ok) {
-                                    // Handle the successful response from the server
-                                    console.log('Message submitted successfully');
-                                } else {
-                                    // Handle any errors or failed responses
-                                    console.error('Failed to submit the message');
-                                }
-                            })
+                            .then(response => response.text())
                             .catch(error => {
-                                // Handle any network or fetch errors
-                                console.error('Network error:', error);
-                            });
-                            clearInterval(timeInterval);
+                                console.error('Fetch error:', error);
+                            });*/
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/result', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                // Replace the content of the entire page with the EJS content
+                                document.open();//this opens the document/site and write the new result.ejs file
+                                document.write(xhr.responseText);
+                                document.close();
+                            } else if (xhr.readyState === 4) {
+                                console.error('Error:', xhr.status);
+                            }
+                        };
+                        var jsonData = {
+                            speed: speed,
+                            accuracy: accuracy,
+                            avgSpeed: avgSpeed
+                        };
+                        xhr.send(JSON.stringify(jsonData));
+                        clearInterval(timeInterval);
                     }
                     else {
                         seconds++;
                     }
                 }, 1000);
             }
-            if (spacebarCount == 0) {
-                $(".textSection>ul li:nth-child(1)").addClass("correct");
+            if (spacebarCount == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+                $(".textSection>ul li:nth-child(1)").addClass("currentWord");
+                $(".monkey").css({ "display": "block" });
+                keypress++;
             }
-            keypress++;
-            if (keypress % 2 == 0) {
-                $(".monkey").attr("src", "https://i.ibb.co/0qMshCj/m1.png");
+            if (keypress % 2 == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+                $(".monkey").attr("src", "images/m1.png");
+                keypress++;
             }
-            else {
-                $(".monkey").attr("src", "https://i.ibb.co/prmkRcy/m2.png");
+            else if(keypress%2!=0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+                $(".monkey").attr("src", "images/m2.png");
+                keypress++;
             }
-            $(".monkey").css({ "display": "block" });
             if ((event.which || event.keyCode) == '32') {
                 spacebarCount++;
                 /*console.log(spacebarCount);*/
@@ -211,8 +235,8 @@
                     removing = adding - 1;
                 }
                 /*console.log("about to",adding,removing);*/
-                $(`.textSection>ul li:nth-child(${adding})`).addClass("correct");
-                $(`.textSection>ul li:nth-child(${removing})`).removeClass("correct");
+                $(`.textSection>ul li:nth-child(${adding})`).addClass("currentWord");
+                $(`.textSection>ul li:nth-child(${removing})`).removeClass("currentWord");
                 /*console.log(adding,removing);*/
                 var index = removing;
                 if (spacebarCount < 7) {
@@ -235,9 +259,12 @@
                     $(`.textSection>ul li:nth-child(${index})`).addClass("incorrect");
                     //let incorrectLetters=($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length;
                     //correctLetters-=incorrectLetters;
-                    let incorrectLetters=(($(".inputSection>input").val()).length);
-                    correctLetters=correctLetters-incorrectLetters;
+                    let incorrectLetters = (($(".inputSection>input").val()).length);
+                    correctLetters = correctLetters - incorrectLetters;
                     //console.log(($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length);
+                }
+                else{
+                    $(`.textSection>ul li:nth-child(${index})`).addClass("correct");
                 }
                 $(".inputSection>input").val('');
                 $(".inputSection>input").removeAttr('placeholder');
@@ -250,7 +277,7 @@
             }
         })
         $(".inputSection>input").keyup(() => {
-            $(".monkey").attr("src", "https://i.ibb.co/J3VcjHK/m3.png");
+            $(".monkey").attr("src", "images/m3.png");
         })
     </script>
 </body>
