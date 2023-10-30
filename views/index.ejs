@@ -160,7 +160,7 @@
             if (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32') {
                 $(".inputSection > input").on('input', function () {
                     var inputValue = $(this).val();
-                    console.log(inputValue);
+                    //console.log(inputValue);
                     var regex= new RegExp(inputValue);
                     if(!regex.test($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))){
                         $(`.textSection>ul li:nth-child(${wordIndex})`).addClass("incorrectLetter");
@@ -223,13 +223,13 @@
             if (spacebarCount == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 $(".textSection>ul li:nth-child(1)").addClass("currentWord");
                 $(".monkey").css({ "display": "block" });
-                keypress++;
             }
-            if (keypress % 2 == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+            if ((keypress+1) % 2 == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+                //here we are using keypress+1 as it is 0 initially so this if statement runs twice before it goes to the next else if statement which means only m1.png is replaced twice i.e. only one hand moves for the first two keypresses so to avoid it, we are using keypress+1
                 $(".monkey").attr("src", "images/m1.png");
                 keypress++;
             }
-            else if (keypress % 2 != 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
+            else if ((keypress+1) % 2 != 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 $(".monkey").attr("src", "images/m2.png");
                 keypress++;
             }
@@ -270,26 +270,17 @@
                 if (spacebarCount == 1) {
                     index = 1;
                 }
-                //console.log(index);
-                /*console.log(adding,removing);*/
-                //Clear the input value when the spacebar is pressed
-                //console.log($(".inputSection>input").val());
                 var inputWord = $(".inputSection>input").val();
                 var actualWord = $(`.textSection>ul li:nth-child(${index})`).text();
-                //console.log(spacebarCount);
-                //console.log(inputWord);
-                //console.log($.trim(actualWord));
                 if ($.trim(actualWord) != inputWord) {
                     $(`.textSection>ul li:nth-child(${index})`).addClass("incorrect");
-                    //let incorrectLetters=($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length;
-                    //correctLetters-=incorrectLetters;
                     let incorrectLetters = (($(".inputSection>input").val()).length);
                     correctLetters = correctLetters - incorrectLetters;
-                    //console.log(($.trim($(`.textSection>ul li:nth-child(${index})`).text())).length);
                 }
                 else {
                     $(`.textSection>ul li:nth-child(${index})`).addClass("correct");
                 }
+                //Clear the input value when the spacebar is pressed
                 $(".inputSection>input").val('');
                 $(".inputSection>input").removeAttr('placeholder');
                 e.preventDefault(); // Prevent the space character from being added
