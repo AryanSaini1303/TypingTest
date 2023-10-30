@@ -15,6 +15,91 @@ app.get("/", (req,res)=>{
         var index=Math.floor(Math.random(1)*2265);
         words.push(data[0][index]);
     }
+    let rangeOfCapital=Math.floor(Math.random(20)*60);
+    for (let i = 0; i < rangeOfCapital; i++) {
+        let indexOfCapital=Math.floor(Math.random()*105);
+        words[indexOfCapital]=words[indexOfCapital].charAt(0).toUpperCase()+words[indexOfCapital].slice(1);//uppercasing first letter and adding the rest of the string/word to it
+    }
+    let rangeOfPunctuation=Math.floor(Math.random(15)*50);
+    console.log(rangeOfPunctuation);
+    let punctuationIndexes=[]
+    for (let i = 0; i < rangeOfPunctuation; i++) {
+        let indexOfPunctuation=Math.floor(Math.random()*105);
+        if(punctuationIndexes.includes(indexOfPunctuation)){
+            i--;/*to prevent less number of iteration due to the above condition for ex. if rangeOfPunctuation 
+            is 10 but the above condition is true for 2 times then the punctuations applied will be 8 unless i use i-- in the same condition block */
+            continue;
+        }
+        punctuationIndexes.push(indexOfPunctuation);
+        let punctuationNumber=Math.floor(Math.random(1)*15);
+        let punctuation;
+        switch(punctuationNumber){
+            case 1:
+                punctuation=";"
+                break;
+            case 2:
+                punctuation=":"
+                break;
+            case 3:
+                punctuation=","
+                break;
+            case 4:
+                punctuation="."
+                break;
+            case 5:
+                punctuation="/"
+                break;
+            case 6:
+                punctuation="?"
+                break;
+            case 7:
+                punctuation="!"
+                break;
+            case 8:
+                punctuation="@"
+                break;
+            case 9:
+                punctuation="#"
+                break;
+            case 10:
+                punctuation="&"
+                break;
+            case 11:
+                punctuation='"'
+                break;
+            case 12:
+                punctuation="'"
+                break;
+            case 13:
+                punctuation='{'
+                break;
+            case 14:
+                punctuation='['
+                break;
+            case 15:
+                punctuation='('
+                break;
+        }
+        if(punctuation=='"'){
+            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+'"';
+        }
+        else if(punctuation=="'"){
+            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"'";    
+        }
+        else if(punctuation=="["){
+            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"]";    
+        }
+        else if(punctuation=="{"){
+            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"}";    
+        }
+        else if(punctuation=="("){
+            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+")";    
+        }
+        else{
+            words[indexOfPunctuation]=words[indexOfPunctuation]+punctuation;
+        }
+    }
+    console.log(punctuationIndexes);
     res.render("index.ejs",{words});
 })  
 app.post("/result",(req,res)=>{

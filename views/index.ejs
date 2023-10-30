@@ -124,6 +124,9 @@
         <div class="textSection">
             <ul>
                 <%for(let i=0;i<105;i++){%>
+                    <% if (words[i].includes("undefined")) { %><%# a punctuation is getting printed as "undefined" so we are using this to remove it from the word %>
+                        <% words[i] = words[i].replace("undefined", ""); %>
+                    <% } %>
                     <li>
                         <%= words[i] %>
                     </li>
@@ -158,10 +161,15 @@
         $(".inputSection>input").keydown(function (e) {
             //console.log(keypress);
             if (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32') {
+                function escapeRegExp(input) {
+                    return input.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                }//replaces the open brackets in input with it's string version as open brackets in RegExp gives syntax error
                 $(".inputSection > input").on('input', function () {
                     var inputValue = $(this).val();
-                    //console.log(inputValue);
-                    var regex= new RegExp(inputValue);
+                    console.log(inputValue);
+                    var escapedInputValue = escapeRegExp(inputValue);
+                    var regex= new RegExp(escapedInputValue);
+                    console.log($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))
                     if(!regex.test($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))){
                         $(`.textSection>ul li:nth-child(${wordIndex})`).addClass("incorrectLetter");
                     }
@@ -178,11 +186,11 @@
             if (keypress == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 var timeInterval = setInterval(function () {
                     //console.log(10 - seconds);
-                    $(".inputSection>.timer").text(10 - seconds);
-                    if (10 - seconds == 0) {
+                    $(".inputSection>.timer").text(30 - seconds);
+                    if (30 - seconds == 0) {
                         //console.log(correctLetters);
                         //console.log(totalLetters);
-                        const speed = Math.floor((correctLetters / 5) / 0.16); // WPM based on 10 seconds
+                        const speed = Math.floor((correctLetters / 5) / 0.5); // WPM based on 10 seconds
                         const accuracy = Math.round((correctLetters / totalLetters) * 100);
                         const avgSpeed = Math.floor(speed * accuracy / 100);
                         /*fetch('/result', {
