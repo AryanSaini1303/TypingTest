@@ -25,6 +25,7 @@ app.get("/", (req,res)=>{
     let punctuationIndexes=[]
     for (let i = 0; i < rangeOfPunctuation; i++) {
         let indexOfPunctuation=Math.floor(Math.random()*105);
+        //this loop is to make sure that no two punctuations come with the same word.
         if(punctuationIndexes.includes(indexOfPunctuation)){
             i--;/*to prevent less number of iteration due to the above condition for ex. if rangeOfPunctuation 
             is 10 but the above condition is true for 2 times then the punctuations applied will be 8 unless i use i-- in the same condition block */
