@@ -119,12 +119,13 @@
         .logo{
             height: 8rem;
             width: 8rem;
+            transition: transform 0.4s;
         }
     </style>
 </head>
 
 <body>
-    <img src="images/Designer__1_-removebg.png" alt="" class="logo">
+    <a href="http://localhost:3000"><img src="images/Designer__1_-removebg.png" alt="" class="logo"></a>
     <div class="textContainer">
         <div class="textSection">
             <ul>
@@ -153,6 +154,18 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        let hover=0;
+        $(".logo").hover(()=>{
+            hover++
+            if(hover%2!=0){
+                $(".logo").attr("src","images/Designer-removebg.png");
+                $(".logo").css("transform","scale(1.05,1.05)");
+            }
+            else{
+                $(".logo").attr("src","images/Designer__1_-removebg.png");
+                $(".logo").css("transform","scale(1,1)");
+            }
+        })
         $(".inputSection>input").focus();
         var keypress = 0;
         var spacebarCount = 0;
@@ -178,6 +191,7 @@
                     console.log($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))
                     if(!regex.test($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))){
                         $(`.textSection>ul li:nth-child(${wordIndex})`).addClass("incorrectLetter");
+                        keypress--;
                     }
                     else{
                         $(`.textSection>ul li:nth-child(${wordIndex})`).removeClass("incorrectLetter");

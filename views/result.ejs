@@ -12,14 +12,16 @@
             background-color: #121212;
             margin: 0;
             padding: 0;
-            animation:fadeIn 0.5s;
+            animation: fadeIn 0.5s;
             animation-fill-mode: forwards;
         }
+
         @keyframes fadeIn {
-            0%{
+            0% {
                 opacity: 0;
             }
-            100%{
+
+            100% {
                 opacity: 1;
             }
         }
@@ -36,7 +38,7 @@
             font-family: 'Comfortaa', sans-serif;
         }
 
-        .textSection h2{
+        .textSection h2 {
             text-align: center;
         }
 
@@ -54,31 +56,40 @@
         .textContainer .typing {
             margin: 2rem 0;
         }
-        .retry{
-            margin:2rem 0;
+
+        .retry {
+            margin: 2rem 0;
         }
-        .logo{
+
+        .logo {
             height: 8rem;
             width: 8rem;
+            transition: transform 0.4s;
         }
     </style>
 </head>
 
 <body>
-    <img src="images/Designer__1_-removebg.png" alt="" class="logo">
+    <a href="http://localhost:3000"><img src="images/Designer__1_-removebg.png" alt="" class="logo"></a>
     <div class="textContainer">
         <div class="textSection">
             <div class="WPM">
                 <h1>WPM</h1>
-                <h2><%= speed %></h2>
+                <h2>
+                    <%= speed %>
+                </h2>
             </div>
             <div class="accuracy">
                 <h1>Accuracy</h1>
-                <h2><%= accuracy %>%</h2>
+                <h2>
+                    <%= accuracy %>%
+                </h2>
             </div>
             <div class="avgSpeed">
                 <h1>Avg. Speed</h1>
-                <h2><%= avgSpeed %></h2>
+                <h2>
+                    <%= avgSpeed %>
+                </h2>
             </div>
         </div>
         <img src="images/m4_fast.png" alt="m4-fast">
@@ -87,7 +98,18 @@
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEJElEQVR4nO1ZWWtTQRQe17qCO7gV8bE+KNSlJnOTBxF8df0F7g+KGy4vVVzwSVwffFEQcYn7PSepdSEKPvggqG1sMxNjraK0boiKWgSvnKSJydzb3nuTmy6QDwaS3p4z55ucOeebuYyVUUYZPQZNwoWAgG0+gXNYf4Qm0cgOAa+5xFqtqW4y65cEskTwpybgSLDlxhjPJvI135zCJX6ynNAyCHhRMAGZHlxgW0DgMs9I+AUszZtAgjHvRairAHY58RmQsFkTUJda9a6JHF1phAZ5QoJLOEtO/XHdGPdgrzH8znbDJ26pq/832Fw3w43fxc/qR/K4vpVLeG9NAm4ukZGKognQRP44JCY83Gew8IbUmPzosJrD0UL9B1uiw2gjcwl/rEgEo9HBRZOY3XDu3oDwxiwBGrOenvk/WTy8utg5Agl9IZfQYpVORTnmElaQo8rHR7LBj7i7w1jQdC0zSUdN7PY45gGCMjKNC0yYUyq8vMDgIxM1CZ8zG3j0/d1GxZ2tucHTz3yVeQgtcWM6l/hK2WPti5quj3fvTMLxXEfVjZc65jScz6seVKmYx+ACF6h7wnUq0UpQeiibdQcXuDbn+xdPKoUFUh06P5U6agRMZU7BJexXHCSrYqGh9EwTeKXzb6dZiVAVCw3lAt7mxwAHnFkbtQNN9Tmn0gTj+oTUc4EBVkJwiVuUNHrDDGOAraGvOTxXqcdfqR/k/o+WQJ8jZ0UgGAuN4hJ+KBt6vq0hF7BHIXC5lIF2By4B8+UM7mR20ASGFAJrWC+BC9yk6LFrtkakLF3/bCWClkCfQqDB3kjAh3yjyETWS+ACZyop9MnWSK3/mfLZG1j8rH6k2g/6FYElMlKh7MfftkYZ/ZMZVPdZL2Hhy/pJSgp9tDXSBMb6yib2y0iN601MpaqvlFFN4DpFj11xYAS7lY1zsUeiddKTnDQykrMKgW/V7/QRrIcRtJASJHOciTlVCXpwbHQLnivd0+nTSrE5M5Z4SFGCieonT4awHiyfXD2ZOZbTjDE6PFDNdZ1/HoGbBeUvumxz5UQTcEptIikZXWL44zo3nQYlHHPtiG4bTLpIYJs/qVeWLPikXklzKH2onbfi2IIcBhK4SqlIRKKxFCT8Sb3S1EQlGkXfl3IJJy1ItPF42O9p2gho9/xii0DXe5pA3ewcflPTK0bsVaUP73vMOZ++WvTskrfmTWi4FYnOkaSarZ6bbZuUwLXmUvk/eJrTk+Czk0ajg7nEE12QoDL7nc7PpF+om5OSpBWmQZ/THV5fT/LAdFiX+RXHs5Xv8r7UIl+LHdzrFxzdkmjFsfRrqM2usMDhF626p6+YnIK6oybxIF06uQ5eYCvJg77xks+oHUgHH3rVRJqdDh6dJzuqLh2dn5+nn+HOQFyf51iYlVFGGaw7/AOe+7eZICbGdgAAAABJRU5ErkJggg==">
         </a>
         <script>
-            
+            hover = 0;//here i can't define the hover as "let hover" because it is defined in the index.ejs and this result.ejs file is written in that file so we can't declare it twice
+            $(".logo").hover(() => {
+                hover++
+                if (hover % 2 != 0) {
+                    $(".logo").attr("src", "images/Designer-removebg.png");
+                    $(".logo").css("transform","scale(1.05,1.05)");
+                }
+                else {
+                    $(".logo").attr("src", "images/Designer__1_-removebg.png");
+                    $(".logo").css("transform","scale(1,1)");
+                }
+            })
         </script>
     </div>
 </body>
