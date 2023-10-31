@@ -168,6 +168,7 @@
                     var inputValue = $(this).val();
                     console.log(inputValue);
                     var escapedInputValue = escapeRegExp(inputValue);
+                    console.log(escapedInputValue);
                     var regex= new RegExp(escapedInputValue);
                     console.log($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))
                     if(!regex.test($.trim($(`.textSection>ul li:nth-child(${wordIndex})`).text()))){

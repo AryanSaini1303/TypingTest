@@ -32,7 +32,7 @@ app.get("/", (req,res)=>{
             continue;
         }
         punctuationIndexes.push(indexOfPunctuation);
-        let punctuationNumber=Math.floor(Math.random(1)*15);
+        let punctuationNumber=Math.floor(Math.random(1)*12);
         let punctuation;
         switch(punctuationNumber){
             case 1:
@@ -57,27 +57,18 @@ app.get("/", (req,res)=>{
                 punctuation="!"
                 break;
             case 8:
-                punctuation="@"
-                break;
-            case 9:
-                punctuation="#"
-                break;
-            case 10:
-                punctuation="&"
-                break;
-            case 11:
                 punctuation='"'
                 break;
-            case 12:
+            case 9:
                 punctuation="'"
                 break;
-            case 13:
+            case 10:
                 punctuation='{'
                 break;
-            case 14:
+            case 11:
                 punctuation='['
                 break;
-            case 15:
+            case 12:
                 punctuation='('
                 break;
         }
