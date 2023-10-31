@@ -33,62 +33,24 @@ app.get("/", (req,res)=>{
         }
         punctuationIndexes.push(indexOfPunctuation);
         let punctuationNumber=Math.floor(Math.random(1)*12);
-        let punctuation;
-        switch(punctuationNumber){
-            case 1:
-                punctuation=";"
-                break;
-            case 2:
-                punctuation=":"
-                break;
-            case 3:
-                punctuation=","
-                break;
-            case 4:
-                punctuation="."
-                break;
-            case 5:
-                punctuation="/"
-                break;
-            case 6:
-                punctuation="?"
-                break;
-            case 7:
-                punctuation="!"
-                break;
-            case 8:
-                punctuation='"'
-                break;
-            case 9:
-                punctuation="'"
-                break;
-            case 10:
-                punctuation='{'
-                break;
-            case 11:
-                punctuation='['
-                break;
-            case 12:
-                punctuation='('
-                break;
+        let punctuation=[";",":",",",".","/","?","!",'"',"'","{","[","("];
+        if(punctuation[punctuationNumber]=='"'){
+            words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+'"';
         }
-        if(punctuation=='"'){
-            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+'"';
+        else if(punctuation[punctuationNumber]=="'"){
+            words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+"'";    
         }
-        else if(punctuation=="'"){
-            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"'";    
+        else if(punctuation[punctuationNumber]=="["){
+            words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+"]";    
         }
-        else if(punctuation=="["){
-            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"]";    
+        else if(punctuation[punctuationNumber]=="{"){
+            words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+"}";    
         }
-        else if(punctuation=="{"){
-            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+"}";    
-        }
-        else if(punctuation=="("){
-            words[indexOfPunctuation]=punctuation+words[indexOfPunctuation]+")";    
+        else if(punctuation[punctuationNumber]=="("){
+            words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+")";    
         }
         else{
-            words[indexOfPunctuation]=words[indexOfPunctuation]+punctuation;
+            words[indexOfPunctuation]=words[indexOfPunctuation]+punctuation[indexOfPunctuation];
         }
     }
     console.log(punctuationIndexes);
