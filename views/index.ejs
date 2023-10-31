@@ -186,11 +186,11 @@
             if (keypress == 0 && (((event.which || event.keyCode) > '48' && (event.which || event.keyCode) < '57') || ((event.which || event.keyCode) > '65' && (event.which || event.keyCode) < '90') || ((event.which || event.keyCode) > '97' && (event.which || event.keyCode) < '105') || ((event.which || event.keyCode) > '186' && (event.which || event.keyCode) < '222') || (event.which || event.keyCode) == '32')) {
                 var timeInterval = setInterval(function () {
                     //console.log(10 - seconds);
-                    $(".inputSection>.timer").text(30 - seconds);
-                    if (30 - seconds == 0) {
+                    $(".inputSection>.timer").text(10 - seconds);
+                    if (10 - seconds == 0) {
                         //console.log(correctLetters);
                         //console.log(totalLetters);
-                        const speed = Math.floor((correctLetters / 5) / 0.5); // WPM based on 10 seconds
+                        const speed = Math.floor((correctLetters / 5) / 0.16); // WPM based on 10 seconds
                         const accuracy = Math.round((correctLetters / totalLetters) * 100);
                         const avgSpeed = Math.floor(speed * accuracy / 100);
                         /*fetch('/result', {
