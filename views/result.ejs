@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@500&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
         body {
@@ -69,6 +70,13 @@
         .retry{
             outline: none;
         }
+        .info{
+            font-family: 'Edu TAS Beginner', cursive;
+            color:white;
+            text-align:center;
+            font-size: 2rem;
+            letter-spacing:0.1rem;
+        }
     </style>
 </head>
 
@@ -100,6 +108,7 @@
             <img
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEJElEQVR4nO1ZWWtTQRQe17qCO7gV8bE+KNSlJnOTBxF8df0F7g+KGy4vVVzwSVwffFEQcYn7PSepdSEKPvggqG1sMxNjraK0boiKWgSvnKSJydzb3nuTmy6QDwaS3p4z55ucOeebuYyVUUYZPQZNwoWAgG0+gXNYf4Qm0cgOAa+5xFqtqW4y65cEskTwpybgSLDlxhjPJvI135zCJX6ynNAyCHhRMAGZHlxgW0DgMs9I+AUszZtAgjHvRairAHY58RmQsFkTUJda9a6JHF1phAZ5QoJLOEtO/XHdGPdgrzH8znbDJ26pq/832Fw3w43fxc/qR/K4vpVLeG9NAm4ukZGKognQRP44JCY83Gew8IbUmPzosJrD0UL9B1uiw2gjcwl/rEgEo9HBRZOY3XDu3oDwxiwBGrOenvk/WTy8utg5Agl9IZfQYpVORTnmElaQo8rHR7LBj7i7w1jQdC0zSUdN7PY45gGCMjKNC0yYUyq8vMDgIxM1CZ8zG3j0/d1GxZ2tucHTz3yVeQgtcWM6l/hK2WPti5quj3fvTMLxXEfVjZc65jScz6seVKmYx+ACF6h7wnUq0UpQeiibdQcXuDbn+xdPKoUFUh06P5U6agRMZU7BJexXHCSrYqGh9EwTeKXzb6dZiVAVCw3lAt7mxwAHnFkbtQNN9Tmn0gTj+oTUc4EBVkJwiVuUNHrDDGOAraGvOTxXqcdfqR/k/o+WQJ8jZ0UgGAuN4hJ+KBt6vq0hF7BHIXC5lIF2By4B8+UM7mR20ASGFAJrWC+BC9yk6LFrtkakLF3/bCWClkCfQqDB3kjAh3yjyETWS+ACZyop9MnWSK3/mfLZG1j8rH6k2g/6FYElMlKh7MfftkYZ/ZMZVPdZL2Hhy/pJSgp9tDXSBMb6yib2y0iN601MpaqvlFFN4DpFj11xYAS7lY1zsUeiddKTnDQykrMKgW/V7/QRrIcRtJASJHOciTlVCXpwbHQLnivd0+nTSrE5M5Z4SFGCieonT4awHiyfXD2ZOZbTjDE6PFDNdZ1/HoGbBeUvumxz5UQTcEptIikZXWL44zo3nQYlHHPtiG4bTLpIYJs/qVeWLPikXklzKH2onbfi2IIcBhK4SqlIRKKxFCT8Sb3S1EQlGkXfl3IJJy1ItPF42O9p2gho9/xii0DXe5pA3ewcflPTK0bsVaUP73vMOZ++WvTskrfmTWi4FYnOkaSarZ6bbZuUwLXmUvk/eJrTk+Czk0ajg7nEE12QoDL7nc7PpF+om5OSpBWmQZ/THV5fT/LAdFiX+RXHs5Xv8r7UIl+LHdzrFxzdkmjFsfRrqM2usMDhF626p6+YnIK6oybxIF06uQ5eYCvJg77xks+oHUgHH3rVRJqdDh6dJzuqLh2dn5+nn+HOQFyf51iYlVFGGaw7/AOe+7eZICbGdgAAAABJRU5ErkJggg==">
         </a>
+        <h2 class="info">Press enter to take the next test</h2>
         <script>
             $(".retry").focus();
             hover = 0;//here i can't define the hover as "let hover" because it is defined in the index.ejs and this result.ejs file is written in that file so we can't declare it twice

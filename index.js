@@ -32,7 +32,7 @@ app.get("/", (req,res)=>{
             continue;
         }
         punctuationIndexes.push(indexOfPunctuation);
-        let punctuationNumber=Math.floor(Math.random(1)*12);
+        let punctuationNumber=Math.floor(Math.random()*11);
         let punctuation=[";",":",",",".","/","?","!",'"',"'","{","[","("];
         if(punctuation[punctuationNumber]=='"'){
             words[indexOfPunctuation]=punctuation[punctuationNumber]+words[indexOfPunctuation]+'"';
@@ -53,7 +53,7 @@ app.get("/", (req,res)=>{
             words[indexOfPunctuation]=words[indexOfPunctuation]+punctuation[indexOfPunctuation];
         }
     }
-    console.log(punctuationIndexes);
+    // console.log(punctuationIndexes);
     res.render("index.ejs",{words});
 })  
 app.post("/result",(req,res)=>{
