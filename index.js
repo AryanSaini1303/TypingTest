@@ -21,7 +21,7 @@ app.get("/", (req,res)=>{
         words[indexOfCapital]=words[indexOfCapital].charAt(0).toUpperCase()+words[indexOfCapital].slice(1);//uppercasing first letter and adding the rest of the string/word to it
     }
     let rangeOfPunctuation=Math.floor(Math.random(15)*50);
-    console.log(rangeOfPunctuation);
+    // console.log(rangeOfPunctuation);
     let punctuationIndexes=[]
     for (let i = 0; i < rangeOfPunctuation; i++) {
         let indexOfPunctuation=Math.floor(Math.random()*105);
